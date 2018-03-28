@@ -1,5 +1,5 @@
 // Created by Spades<spadesge@gmail.com> on 18/03/19
-// Brief: 利用关键字{keyword}，当前页{page}(从1开始)检索网易云音乐曲库，单次最多返回20条结果
+// Brief: 利用关键字{keyword}，当前页{page}(从1开始)检索网易云音乐曲库有版权曲目，单次最多返回20条结果
 // 返回结果：Array
 // ArrayItem ={
 //     song: {
@@ -19,14 +19,16 @@ const querystring = require('query-string')
 const Encrypt = require('./netease_crypto')
 const { randomUserAgent } = require('./utils')
 
+const pageNum = 20
+
 const NetEaseMusicConfig = {
     host: 'music.163.com',
-    path: '/weapi/search/get',
+    path: '/weapi/cloudsearch/get/web?csrf_token=',
     method: 'POST',
     data: {
         csrf_token: '',
         s: '',
-        limit: 20,
+        limit: pageNum,
         offset: 0,
         type: 1
     }
@@ -37,18 +39,18 @@ function createWebAPIRequest(keyword, page) {
     const {
         host, path, method, data
     } = NetEaseMusicConfig
-    data.offset = (page - 1) * 20
+    data.offset = (page - 1) * pageNum
     data.s = keyword
     const cryptoreq = Encrypt(data)
     const options = {
-        url: `http://${host}${path}`,
+        url: `https://${host}${path}`,
         method,
         headers: {
             Accept: '*/*',
             'Accept-language': 'zh-CN,zh;q=0.9,en;q=0.8,zh-TW;q=0.7',
             Connection: 'keep-alive',
             'Content-Type': 'application/x-www-form-urlencoded',
-            Referer: 'https://music.163.com',
+            Referer: 'https://music.163.com/search/',
             Host: 'music.163.com',
             'User-Agent': randomUserAgent()
         },
@@ -77,31 +79,35 @@ async function getNetEaseData(keyword, page) {
             const {
                 name: songName,
                 id: songId,
-                artists: originArtists,
-                album: { name: albumName, id: albumId }
+                ar: originArtists,
+                al: { name: albumName, id: albumId },
+                privilege: { st: copyright }
             } = songItem
-            const artists = []
-            originArtists.forEach((artistItem) => {
-                artists.push({
-                    name: artistItem.name,
-                    link: `https://music.163.com/#/artist?id=${artistItem.id}`
+            if (copyright >= 0) {
+                const artists = []
+                originArtists.forEach((artistItem) => {
+                    artists.push({
+                        name: artistItem.name,
+                        link: `https://music.163.com/#/artist?id=${artistItem.id}`
+                    })
                 })
-            })
 
-            result.push({
-                song: {
-                    name: songName,
-                    link: `https://music.163.com/#/song?id=${songId}`
-                },
-                artists,
-                album: {
-                    name: albumName,
-                    link: `https://music.163.com/#/album?id=${albumId}`
-                }
-            })
+                result.push({
+                    song: {
+                        name: songName,
+                        link: `https://music.163.com/#/song?id=${songId}`
+                    },
+                    artists,
+                    album: {
+                        name: albumName,
+                        link: `https://music.163.com/#/album?id=${albumId}`
+                    },
+                    from: 'netease'
+                })
+            }
         })
     } catch (err) {
-        console.log(err)
+        throw (err)
     }
     return result
 }

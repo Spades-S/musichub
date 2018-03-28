@@ -1,5 +1,5 @@
 // Created by Spades<spadesge@gmail.com> on 18/03/21
-// Brief: 利用关键字{keyword}，当前页{page}(从1开始)检索QQ音乐曲库，单次最多返回20条结果
+// Brief: 利用关键字{keyword}，当前页{page}(从1开始)检索QQ音乐曲库有版权，单次最多返回20条结果
 // 返回结果：Array
 // ArrayItem ={
 //     song: {
@@ -77,14 +77,14 @@ async function getQQData(keyword, page) {
                 name: songName,
                 file: { media_mid: songLink },
                 album: { name: albumName, mid: albumLink },
-                singer: originSingerArray
+                singer: originArtistArrar
             } = songItem
-            const singerArrar = []
-            originSingerArray.forEach((singerItem) => {
-                const { name: singerName, mid: singerLink } = singerItem
-                singerArrar.push({
-                    name: singerName,
-                    link: `https://y.qq.com/n/yqq/singer/${singerLink}.html`
+            const artistArrar = []
+            originArtistArrar.forEach((singerItem) => {
+                const { name: artistName, mid: artistLink } = singerItem
+                artistArrar.push({
+                    name: artistName,
+                    link: `https://y.qq.com/n/yqq/singer/${artistLink}.html`
                 })
             })
 
@@ -97,14 +97,16 @@ async function getQQData(keyword, page) {
                     name: albumName,
                     link: `https://y.qq.com/n/yqq/album/${albumLink}.html`
                 },
-                singer: singerArrar
+                artists: artistArrar,
+                from: 'qq'
             })
         })
     } catch (err) {
-        console.log(`[Error when GetQQData]   ${err}`)
+        throw (err)
     }
     return result
 }
 
-getQQData('周杰伦', 2).then(() => {
-})
+module.exports = {
+    getQQData
+}
