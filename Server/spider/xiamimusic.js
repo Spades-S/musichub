@@ -54,8 +54,17 @@ async function getXiaMiData(keyword, page) {
         const AlbumResult = $('.track_list tbody').find($('td.song_album'))
         const Length = Object.entries(SongResult).length - 4
         for (let i = 0; i < Length; i++) {
-            const songName = $($(SongResult[i]).find('a')[0]).attr('title')
-            const songLink = $($(SongResult[i]).find('a')[0]).attr('href')
+            let songName
+            let songLink
+            const firstTagAInSongResult = $(SongResult[i]).find('a')[0]
+            if ($(firstTagAInSongResult).attr('class') === 'slide_down') {
+                songName = $($(SongResult[i]).find('a')[1]).attr('title')
+                songLink = $($(SongResult[i]).find('a')[1]).attr('href')
+            } else {
+                songName = $(firstTagAInSongResult).attr('title')
+                songLink = $(firstTagAInSongResult).attr('href')
+            }
+
             const artistName = $($(ArtistResult[i]).find('a')[0]).attr('title')// TODO 补全所有作者，目前只读取了第一作者
             const artistLink = $($(ArtistResult[i]).find('a')[0]).attr('href')
             const albumName = $($(AlbumResult[i]).find('a')[0]).attr('title')
