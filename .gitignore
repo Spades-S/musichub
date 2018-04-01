@@ -1,6 +1,7 @@
-.DS_Store
+**/.DS_Store
+**/yarn.lock
+**/node_modules
 .git
 .idea/*
 yarn-error.log
-Server/node_modules/*
-Server/yarn.lock
+

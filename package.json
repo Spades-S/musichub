@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "style-loader": "^0.20.3"
+  },
+  "dependencies": {
+    "axios": "^0.18.0"
+  }
+}
