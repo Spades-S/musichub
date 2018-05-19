@@ -15,8 +15,9 @@ const devWebpackConf = {
     devtool: 'inline-source-map',
     devServer: {
         compress: true,
-        contentBase: utils.resolve('../static'),
+        contentBase: config.assetsRoot,
         hot: true,
+        host: '0.0.0.0',
         open: true,
         publicPath: '/'
     },
@@ -29,7 +30,16 @@ const devWebpackConf = {
     plugins: [
         new HtmlWebpackPlugin({
             template: 'index.html',
+            chunks: ['des'],
+            favicon: utils.resolve('../src/assets/favicon.png'),
             filename: 'index.html',
+            inject: true
+        }),
+        new HtmlWebpackPlugin({
+            template: 'index.html',
+            chunks: ['mob'],
+            favicon: utils.resolve('../src/assets/favicon.png'),
+            filename: 'mobile.html',
             inject: true
         }),
         new Webpack.HotModuleReplacementPlugin(),
@@ -38,5 +48,3 @@ const devWebpackConf = {
 }
 
 module.exports = WebpackMerge(baseWebpackConf, devWebpackConf)
-
-

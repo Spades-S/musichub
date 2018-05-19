@@ -13,19 +13,21 @@ var spinner = ora('build for production ... ')
 spinner.start()
 rm('-rf', config.assetsRoot)
 mkdir('-p', config.assetsRoot)
-cp('-r', 'static/*', config.assetsRoot)
+// cp('-r', 'dist/*', config.assetsRoot)
 Webpack(prodWebpackConf, (err, stats) => {
-    console.log(process.env.NODE_ENV+'test')
+    console.log(process.env.NODE_ENV + 'test')
     spinner.stop()
     if (err) throw err
     process.stdout.write(stats.toString({
         colors: true,
         modules: false,
-        children: false, // If you are using ts-loader, setting this to true will make TypeScript errors show up during build.
+        // If you are using ts-loader, setting this to true will
+        // make TypeScript errors show up during build.
+        children: false,
         chunks: false,
         chunkModules: false
     }) + '\n\n')
-    if(stats.hasErrors()){
+    if (stats.hasErrors()) {
         console.log(chalk.red('  Build failed with errors.\\n'))
         process.exit(1)
     }

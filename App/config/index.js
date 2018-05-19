@@ -13,8 +13,9 @@ module.exports = {
         cssSourceMap: true,
         usePostCss: false,
         devtool: 'source-map',
-        index: resolve('../../Server/view/index.html'),
-        productionGzip: false
+        desktop: resolve('../../Server/static/index.html'),
+        mobile: resolve('../../Server/static/mobile.html'),
+        productionGzip: true
     },
     dev: {
         node_env: 'development',

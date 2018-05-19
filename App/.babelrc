@@ -1,14 +1,19 @@
 {
 	"presets": [
 		[
-			"env"
+			"es2015",
+			{
+				"modules": false
+			}
 		]
 	],
 	"plugins": [
 		[
 			"component",
 			{
-				"libraryName": "element-ui",
+				"libraryName": [
+					"element-ui"
+				],
 				"styleLibraryName": "theme-chalk"
 			}
 		]

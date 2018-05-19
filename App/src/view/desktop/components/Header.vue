@@ -2,15 +2,13 @@
     <div class="container" :class="{hasResult:hasResult}">
         <div class="title">MusicHub</div>
         <el-input class="search" type="text" placeholder="find your favourite songs"
-                  v-model="input" :clearable="true" @clear="clear">
+                  v-model="input" :clearable="true" @keydown.enter.native = "enter">
             <el-button slot="append" icon="el-icon-search" @click="search"></el-button>
         </el-input>
     </div>
 </template>
 <script>
-    import axios from 'axios'
-
-    import Bus from '../assets/eventBus.js'
+    import Bus from '../../../assets/eventBus.js'
 
     export default {
         data() {
@@ -29,8 +27,8 @@
                     Bus.$emit('startsearch', keyword)
                 }
             },
-            clear() {
-//                this.showResult = false
+            enter(){
+                this.search()
             }
         }
     }

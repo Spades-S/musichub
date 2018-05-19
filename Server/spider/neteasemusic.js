@@ -19,7 +19,7 @@ const querystring = require('query-string')
 const Encrypt = require('./netease_crypto')
 const { randomUserAgent } = require('./utils')
 
-const pageNum = 20
+const PageNum = 20
 
 const NetEaseMusicConfig = {
     host: 'music.163.com',
@@ -28,19 +28,21 @@ const NetEaseMusicConfig = {
     data: {
         csrf_token: '',
         s: '',
-        limit: pageNum,
+        limit: 20,
         offset: 0,
         type: 1
     }
 }
 
 
-function createWebAPIRequest(keyword, page) {
+function createWebAPIRequest(keyword, page, pageNum) {
     const {
         host, path, method, data
     } = NetEaseMusicConfig
+
     data.offset = (page - 1) * pageNum
     data.s = keyword
+    data.limit = pageNum
     const cryptoreq = Encrypt(data)
     const options = {
         url: `https://${host}${path}`,
@@ -70,49 +72,63 @@ function createWebAPIRequest(keyword, page) {
     })
 }
 
+
 async function getNetEaseData(keyword, page) {
     const result = []
     try {
-        const originData = await createWebAPIRequest(keyword, page)
+        const originData = await createWebAPIRequest(keyword, page, PageNum)
         const songsData = JSON.parse(originData).result.songs
-        songsData.forEach((songItem) => {
-            const {
-                name: songName,
-                id: songId,
-                ar: originArtists,
-                al: { name: albumName, id: albumId },
-                privilege: { st: copyright }
-            } = songItem
-            if (copyright >= 0) {
-                const artists = []
-                originArtists.forEach((artistItem) => {
-                    artists.push({
-                        name: artistItem.name,
-                        link: `https://music.163.com/#/artist?id=${artistItem.id}`
+        if (songsData) {
+            songsData.forEach((songItem) => {
+                const {
+                    name: songName,
+                    id: songId,
+                    ar: originArtists,
+                    al: { name: albumName, id: albumId },
+                    privilege: { st: copyright }
+                } = songItem
+                if (copyright >= 0) {
+                    const artists = []
+                    originArtists.forEach((artistItem) => {
+                        artists.push({
+                            name: artistItem.name,
+                            link: `https://music.163.com/#/artist?id=${artistItem.id}`
+                        })
                     })
-                })
 
-                result.push({
-                    song: {
-                        name: songName,
-                        link: `https://music.163.com/#/song?id=${songId}`
-                    },
-                    artists,
-                    album: {
-                        name: albumName,
-                        link: `https://music.163.com/#/album?id=${albumId}`
-                    },
-                    from: 'netease'
-                })
-            }
-        })
+                    result.push({
+                        song: {
+                            name: songName,
+                            link: `https://music.163.com/#/song?id=${songId}`
+                        },
+                        artists,
+                        album: {
+                            name: albumName,
+                            link: `https://music.163.com/#/album?id=${albumId}`
+                        }
+                    })
+                }
+            })
+        }
     } catch (err) {
         throw (err)
     }
     return result
 }
 
+async function getNetEaseTotalNum(keyword) {
+    let total = 0
+    try {
+        const originData = await createWebAPIRequest(keyword, 1, 1)
+        total = JSON.parse(originData).result.songCount
+    } catch (err) {
+        throw (err)
+    }
+    return total
+}
+
 
 module.exports = {
-    getNetEaseData
+    getNetEaseData,
+    getNetEaseTotalNum
 }

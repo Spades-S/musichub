@@ -19,7 +19,7 @@ const { randomUserAgent } = require('./utils')
 
 const pageNum = 20
 
-function createWebAPIRequest(keyword, page) {
+function createWebAPIRequest(keyword, page, pagenum) {
     const options = {
         url: 'https://c.y.qq.com/soso/fcgi-bin/client_search_cp',
         headers: {
@@ -41,7 +41,7 @@ function createWebAPIRequest(keyword, page) {
             lossless: 0,
             flag_qc: 0,
             p: page,
-            n: pageNum,
+            n: pagenum,
             w: keyword,
             g_tk: 5381,
             jsonpCallback: '',
@@ -70,12 +70,12 @@ function createWebAPIRequest(keyword, page) {
 async function getQQData(keyword, page) {
     const result = []
     try {
-        const originData = await createWebAPIRequest(keyword, page)
+        const originData = await createWebAPIRequest(keyword, page, pageNum)
         const { data: { song: { list: songList } } } = JSON.parse(originData)
         songList.forEach((songItem) => {
             const {
                 name: songName,
-                file: { media_mid: songLink },
+                mid: songLink,
                 album: { name: albumName, mid: albumLink },
                 singer: originArtistArrar
             } = songItem
@@ -97,8 +97,7 @@ async function getQQData(keyword, page) {
                     name: albumName,
                     link: `https://y.qq.com/n/yqq/album/${albumLink}.html`
                 },
-                artists: artistArrar,
-                from: 'qq'
+                artists: artistArrar
             })
         })
     } catch (err) {
@@ -107,6 +106,19 @@ async function getQQData(keyword, page) {
     return result
 }
 
+
+async function getQQTotalNum(keyword) {
+    let num = 0
+    try {
+        const originData = await createWebAPIRequest(keyword, 1, 1)
+        num = JSON.parse(originData).data.song.totalnum
+    } catch (err) {
+        throw (err)
+    }
+    return num
+}
+
 module.exports = {
-    getQQData
+    getQQData,
+    getQQTotalNum
 }

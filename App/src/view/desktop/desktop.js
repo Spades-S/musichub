@@ -2,9 +2,9 @@
 
 import Vue from 'vue'
 import 'element-ui/lib/theme-chalk/index.css'
-import { Button, Carousel, CarouselItem, Input } from 'element-ui'
+import { Button, Carousel, CarouselItem, Input, Pagination } from 'element-ui'
 
-import App from './App.vue'
+import Desktop from './Desktop.vue'
 import router from './router/index'
 
 Vue.config.productionTip = false
@@ -13,13 +13,14 @@ Vue.use(Button)
 Vue.use(Carousel)
 Vue.use(CarouselItem)
 Vue.use(Input)
+Vue.use(Pagination)
 
 
 /* eslint-disable no-new */
 new Vue({
     el: '#app',
     router,
-    components: { App },
-    template: '<App/>'
+    components: { Desktop },
+    template: '<Desktop/>'
 })
 

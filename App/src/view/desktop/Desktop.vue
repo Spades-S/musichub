@@ -30,7 +30,7 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         text-align: center;
-        background: url(./assets/background.png) center;
+        background: url(../../assets/background.png) center;
         -webkit-background-size: cover;
         background-size: cover;
         background: linear-gradient(#8ccad9, #d6c3ac);

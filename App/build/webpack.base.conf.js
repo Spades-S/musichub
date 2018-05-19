@@ -1,13 +1,17 @@
 // created by Spades <spadesge@gmail.com> on 18/3/13
 
+const PostCompilePlugin = require('webpack-post-compile-plugin')
+const TransformModulesPlugin = require('webpack-transform-modules-plugin')
+
 const config = require('../config')
-const resolve = require('./utils').resolve
+const { resolve } = require('./utils')
 const VueLoaderConf = require('./vue-loader.conf')
 
 module.exports = {
     context: resolve('../'),
     entry: {
-        app: './src/index.js'
+        des: './src/view/desktop/desktop.js',
+        mob: './src/view/mobile/mobile.js'
     },
     output: {
         path: config.assetsRoot,
@@ -52,6 +56,10 @@ module.exports = {
                 limit: 10000
             }
         }]
-    }
+    },
+    plugins: [
+        new PostCompilePlugin(),
+        new TransformModulesPlugin()
+    ]
 
 }

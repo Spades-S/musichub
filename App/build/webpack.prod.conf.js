@@ -2,6 +2,7 @@
 
 process.env.NODE_ENV = 'production'
 
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
@@ -30,6 +31,7 @@ const prodWebpackConf = {
         chunkFilename: 'js/[id].[chunkhash].js'
     },
     plugins: [
+        new BundleAnalyzerPlugin(),
         new UglifyjsPlugin({
             uglifyOptions: {
                 compress: {
@@ -45,31 +47,40 @@ const prodWebpackConf = {
         }),
         new OptimizeCSSPlugin({
             cssProcessorOptions: config.build.cssSourceMap
-                ? {safe: true, map: {inline: false}}
-                : {safe: true}
+                ? { safe: true, map: { inline: false } }
+                : { safe: true }
         }),
         new HtmlWebpackPlugin({
             template: 'index.html',
-            filename: config.build.index,
+            favicon: utils.resolve('../src/assets/favicon.png'),
+            filename: config.build.desktop,
             inject: true,
             minify: {
                 removeComments: true,
                 collapseWhitespace: true,
                 removeAttributeQuotes: true
             },
+            chunks: ['manifest', 'vendor', 'des'],
+            chunksSortMode: 'dependency'
+        }),
+        new HtmlWebpackPlugin({
+            template: 'index.html',
+            favicon: utils.resolve('../src/assets/favicon.png'),
+            filename: config.build.mobile,
+            inject: true,
+            minify: {
+                removeComments: true,
+                collapseWhitespace: true,
+                removeAttributeQuotes: true
+            },
+            chunks: ['manifest', 'vendor', 'mob'],
             chunksSortMode: 'dependency'
         }),
         new Webpack.HashedModuleIdsPlugin(),
         new Webpack.optimize.ModuleConcatenationPlugin(),
         new Webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
-            minChunks(module) {
-                return (
-                    module.resource &&
-                    /\.js$/.test(module.resource) &&
-                    module.resource.indexOf(utils.resolve('../node_modules')) === 0
-                )
-            }
+            minChunks: 2
         }),
         new Webpack.optimize.CommonsChunkPlugin({
             name: 'manifest',
@@ -79,7 +90,7 @@ const prodWebpackConf = {
             name: 'app',
             async: 'vendor-async',
             children: true,
-            minChunks: 3
+            minChunks: 2
         }),
         new CopyWebpackPlugin([{
             from: utils.resolve('../static'),
@@ -104,5 +115,4 @@ if (config.build.productionGzip) {
 
 
 module.exports = WebpackMerge(baseWebpackConf, prodWebpackConf)
-
 
