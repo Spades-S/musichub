@@ -117,8 +117,6 @@
                                 this.$refs[source][0].forceUpdate()
                             }
                         }
-                        console.log()
-                        console.log(this.$refs[source])
                     })
                     .catch(err => {
                         console.log(err)

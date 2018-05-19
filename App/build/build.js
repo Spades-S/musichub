@@ -13,9 +13,9 @@ var spinner = ora('build for production ... ')
 spinner.start()
 rm('-rf', config.assetsRoot)
 mkdir('-p', config.assetsRoot)
-// cp('-r', 'dist/*', config.assetsRoot)
+rm('-rf', config.viewRoot)
+mkdir('-p', config.viewRoot)
 Webpack(prodWebpackConf, (err, stats) => {
-    console.log(process.env.NODE_ENV + 'test')
     spinner.stop()
     if (err) throw err
     process.stdout.write(stats.toString({

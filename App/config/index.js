@@ -8,13 +8,14 @@ function resolve(dir) {
 
 module.exports = {
     assetsRoot: resolve('../../Server/static'),
+    viewRoot: resolve('../../Server/view'),
     build: {
         node_env: 'production',
         cssSourceMap: true,
         usePostCss: false,
         devtool: 'source-map',
-        desktop: resolve('../../Server/static/index.html'),
-        mobile: resolve('../../Server/static/mobile.html'),
+        desktop: resolve('../../Server/view/index.html'),
+        mobile: resolve('../../Server/view/mobile.html'),
         productionGzip: true
     },
     dev: {
