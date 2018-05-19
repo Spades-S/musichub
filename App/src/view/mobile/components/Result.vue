@@ -25,8 +25,8 @@
     import axios from 'axios'
     import Bus from '../../../assets/eventBus.js'
 
-    axios.defaults.baseURL = 'http://localhost:3000/api/v1'
-//        axios.defaults.baseURL = '/api/v1'
+//    axios.defaults.baseURL = 'http://localhost:3000/api/v1'
+        axios.defaults.baseURL = '/api/v1'
     axios.defaults.withCredentials = true
     export default {
         data() {
@@ -109,7 +109,6 @@
                     .then(res => {
                         if (page === 1 && res.data.length > 0) {
                             this.itemNum += 1
-                            console.log(this.itemNum)
                         }
                         this.resources[source].data = this.resources[source].data.concat(res.data)
                         this.currentPage[source] = page
@@ -118,7 +117,6 @@
                                 this.$refs[source][0].forceUpdate()
                             }
                         }
-                        console.log(this.resources)
                     })
                     .catch(err => {
                         console.log(err)
