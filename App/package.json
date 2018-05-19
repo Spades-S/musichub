@@ -56,7 +56,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "better-scroll": "^1.11.1",
-    "cube-ui": "^1.9.3",
+    "cube-ui": "https://github.com/Spades-S/cube-ui.git#v1.8.1",
     "element-ui": "^2.3.2",
     "style-loader": "^0.20.3",
     "vue": "^2.5.15",
