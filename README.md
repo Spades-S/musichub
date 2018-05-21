@@ -36,7 +36,7 @@
 
     - Koa：利用koa搭建了RESTful API服务器
     - request： spider使用request请求数据
-    - 服务端渲染：解析UserAgent，判断当前设备类型：PC/Mobile
+    - 服务端渲染：解析UserAgent，判断当前设备类型：PC/Mobile，根据设备类型渲染对应页面
 
 #### 快速使用
 * 前端(App)
