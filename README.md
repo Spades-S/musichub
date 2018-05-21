@@ -40,9 +40,14 @@
 
 #### 快速使用
 * 前端(App)
-    - yarn (建议使用yarn安装依赖，依赖里有一个git仓库(对cube-ui做了修改)，npm 5.5.1 会报错
+    - 安装依赖：yarn (建议使用yarn安装依赖，依赖里有一个git仓库(对cube-ui做了修改)，npm 5.5.1 会报错
     - 开发模式运行: yarn run dev (需要将 App/src/view/desktop/components/Result.vue和App/src/view/desktop/components/Result.vue中  axios.defaults.baseURL 设置为 'http://localhost:3000/api/v1'
     - 打包：yarn run build，打包生成html文件将会在Server/view目录下，其他文件(css、js等)会在Server/static文件夹下(需要将 App/src/view/desktop/components/Result.vue和App/src/view/desktop/components/Result.vue中  axios.defaults.baseURL 设置为 '/api/v1'
+    
+* 服务端(Server)
+    - 修改端口：修改Server/config/index.js中port 
+    - 开发者模式运行：yarn run dev
+    - product模式：yarn run prod
 
 
 #### Contribute
