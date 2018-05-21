@@ -45,9 +45,9 @@
     - 打包：yarn run build，打包生成html文件将会在Server/view目录下，其他文件(css、js等)会在Server/static文件夹下(需要将 App/src/view/desktop/components/Result.vue和App/src/view/desktop/components/Result.vue中  axios.defaults.baseURL 设置为 '/api/v1'
     
 * 服务端(Server)
-    - 修改端口：修改Server/config/index.js中port 
-    - 开发者模式运行：yarn run dev
-    - product模式：yarn run prod
+    - 修改端口：修改Server/config/index.js中port
+    - 开发者模式运行：yarn run dev
+    - product模式：yarn run prod
 
 
 #### Contribute

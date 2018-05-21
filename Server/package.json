@@ -1,31 +1,21 @@
 {
-  "name": "gracejs",
-  "version": "2.1.0",
-  "description": "A Nodejs SFB(Separation of Front and Back ends) framework, build with koa 2.x",
+  "name": "MusicHub",
+  "version": "1.0",
+  "description": "MusicHub",
   "main": "./service/index.js",
-  "directories": {
-    "test": "test"
-  },
   "scripts": {
-    "test": "mocha",
     "dev": "nodemon ./service/index.js",
-    "start": "node ./service/index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/xiongwilee/koa-grace.git"
+    "prod": "node ./service/index.js"
   },
   "keywords": [
     "koa",
-    "koajs",
-    "koa-grace",
-    "gracejs"
+    "request",
   ],
-  "author": "xiongwilee",
+  "author": "spades<spadesge@gmail.com>",
   "bugs": {
-    "url": "https://github.com/xiongwilee/koa-grace/issues"
+    "url": "https://github.com/Spades-S/musichub/issues"
   },
-  "homepage": "https://github.com/xiongwilee/koa-grace",
+  "homepage": "hhttps://github.com/Spades-S/musichub",
   "engines": {
     "node": ">=7.6.0"
   },
