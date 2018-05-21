@@ -28,11 +28,10 @@ const pageNum = 20
 function setRouter(router) {
     router.get('/', async (ctx) => {
         const UserAgentInfo = ctx.userAgent
-        if (UserAgentInfo.isDesktop) {
-            await ctx.render('index')
-        }
         if (UserAgentInfo.isMobile) {
             await ctx.render('mobile')
+        } else {
+            await ctx.render('index')
         }
     })
     router.get(`${baseURL}/search/:source/:keyword/:page`, async (ctx) => {
