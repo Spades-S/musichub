@@ -46,7 +46,7 @@
     
 * 服务端(Server)
     - 修改端口：修改Server/config/index.js中port 
-    - 开发者模式运行：yarn run dev
+    - 开发者模式运行：yarn run dev
     - product模式：yarn run prod
 
 
