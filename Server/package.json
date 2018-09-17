@@ -1,42 +1,42 @@
 {
-  "name": "MusicHub",
-  "version": "1.0",
-  "description": "MusicHub",
-  "main": "./service/index.js",
-  "scripts": {
-    "dev": "nodemon ./service/index.js",
-    "prod": "node ./service/index.js"
-  },
-  "keywords": [
-    "koa",
-    "request",
-  ],
-  "author": "spades<spadesge@gmail.com>",
-  "bugs": {
-    "url": "https://github.com/Spades-S/musichub/issues"
-  },
-  "homepage": "hhttps://github.com/Spades-S/musichub",
-  "engines": {
-    "node": ">=7.6.0"
-  },
-  "dependencies": {
-    "big-integer": "^1.6.27",
-    "cheerio": "^1.0.0-rc.2",
-    "koa": "^2.0.1",
-    "koa-logger": "^3.2.0",
-    "koa-nunjucks-2": "^3.0.2",
-    "koa-router": "^7.4.0",
-    "koa-static": "^4.0.2",
-    "koa-useragent": "^1.1.0",
-    "query-string": "^6.0.0",
-    "request": "^2.75.0"
-  },
-  "devDependencies": {
-    "eslint": "4.9.0",
-    "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "2.7.0",
-    "mocha": "^3.1.0",
-    "nodemon": "^1.10.2"
-  },
-  "license": "MIT"
+    "name": "MusicHub",
+    "version": "1.0.0",
+    "description": "MusicHub",
+    "main": "./service/index.js",
+    "scripts": {
+        "dev": "nodemon ./service/index.js",
+        "prod": "node ./service/index.js"
+    },
+    "keywords": [
+        "koa",
+        "request"
+    ],
+    "author": "spades<spadesge@gmail.com>",
+    "bugs": {
+        "url": "https://github.com/Spades-S/musichub/issues"
+    },
+    "homepage": "hhttps://github.com/Spades-S/musichub",
+    "engines": {
+        "node": ">=7.6.0"
+    },
+    "dependencies": {
+        "big-integer": "^1.6.27",
+        "cheerio": "^1.0.0-rc.2",
+        "koa": "^2.0.1",
+        "koa-logger": "^3.2.0",
+        "koa-nunjucks-2": "^3.0.2",
+        "koa-router": "^7.4.0",
+        "koa-static": "^4.0.2",
+        "koa-useragent": "^1.1.0",
+        "query-string": "^6.0.0",
+        "request": "^2.75.0"
+    },
+    "devDependencies": {
+        "eslint": "4.9.0",
+        "eslint-config-airbnb-base": "^12.1.0",
+        "eslint-plugin-import": "2.7.0",
+        "mocha": "^3.1.0",
+        "nodemon": "^1.10.2"
+    },
+    "license": "MIT"
 }

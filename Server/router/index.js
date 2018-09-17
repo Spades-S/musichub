@@ -2,9 +2,13 @@
 
 
 const {
-    getNetEaseData, getNetEaseTotalNum, getQQData, getQQTotalNum, getXiaMiData, getXiaMiTotalNum
-}
-    = require('../spider/index')
+    getNetEaseData,
+    getNetEaseTotalNum,
+    getQQData,
+    getQQTotalNum,
+    getXiaMiData,
+    getXiaMiTotalNum
+} = require('../spider/index')
 
 const { baseURL } = require('../config')
 
